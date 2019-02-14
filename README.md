@@ -1,0 +1,1 @@
+*This shell script syncs usb drive with ~/Videos folder and runs vlc to loop through them in fullscreen mode*
