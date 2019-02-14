@@ -4,6 +4,13 @@ VIDEOS_DIR=~/Videos
 USB_DIR=/media/$USER
 PID_FILE=~/.vlc.pid
 
+run_player()
+{
+    vlc -L $VIDEOS_DIR --fullscreen --one-instance > /dev/null &
+    PID=$!
+    echo $PID > $PID_FILE
+}
+
 if [ ! -d $VIDEOS_DIR ];
 then
     mkdir $VIDEOS_DIR
@@ -26,13 +33,9 @@ then
     if [[ $VLC_PID == "" ]] || [[ $(ps ax| grep $VLC_PID | grep vlc) == "" ]];
     then
         echo "No PID or PID is not in the process list"
-        vlc -L $VIDEOS_DIR --fullscreen &
-        PID=$!
-        echo $PID > $PID_FILE
+        run_player
     fi;
 else
-    vlc -L $VIDEOS_DIR --fullscreen &
-    PID=$!
-    echo $PID > $PID_FILE
+    run_player
 fi;    
 
